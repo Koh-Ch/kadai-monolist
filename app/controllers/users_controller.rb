@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :require_user_logged_in, only: [:show]
   def show
     @user = User.find(params[:id]) #temp: 登録確認 @userにブラウザインフォのidを取得して検索代入
   end
