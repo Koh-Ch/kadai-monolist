@@ -4,6 +4,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id]) #temp: 登録確認 @userにブラウザインフォのidを取得して検索代入
     @items = @user.items.uniq
     @count_want = @user.want_items.count
+    @count_have = @user.have_items.count
   end
 
   def new #新規登録用画面へ
@@ -15,6 +16,7 @@ class UsersController < ApplicationController
 
     if @user.save
       flash[:success] = 'ユーザを登録しました。'
+      session[:user_id] = @user.id  ##これでサインアップ後もログイン状態となる
       redirect_to @user
     else
       flash.now[:danger] = 'ユーザの登録に失敗しました。'
